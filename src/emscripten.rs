@@ -23,7 +23,9 @@ pub fn system_locale() -> Option<Locale> {
         return 0;\0";
     unsafe {
         let cptr = emscripten_asm_const_int(&JS[0] as *const _ as *const c_char);
-        return CStr::from_ptr(cptr as *const c_char).to_str().ok()
+        return CStr::from_ptr(cptr as *const c_char)
+            .to_str()
+            .ok()
             .and_then(|s| Locale::new(s).ok());
     }
 }
